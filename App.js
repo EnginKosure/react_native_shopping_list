@@ -9,6 +9,7 @@ import {
 } from 'react-native';
 import Header from './components/Header';
 import {v4 as uuid} from 'uuid';
+import ListItem from './components/ListItem';
 
 const App = () => {
   const [items, setItems] = useState([
@@ -24,7 +25,7 @@ const App = () => {
         <Header />
         <FlatList
           data={items}
-          renderItem={({item}) => <Text>{item.text}</Text>}
+          renderItem={({item}) => <ListItem item={item} />}
         />
       </SafeAreaView>
       <View style={styles.container}>
