@@ -1,11 +1,31 @@
-import React from 'react';
-import {View, Text, StyleSheet, Image, SafeAreaView} from 'react-native';
+import React, {useState} from 'react';
+import {
+  View,
+  Text,
+  StyleSheet,
+  Image,
+  SafeAreaView,
+  FlatList,
+} from 'react-native';
 import Header from './components/Header';
+import {v4 as uuid} from 'uuid';
+
 const App = () => {
+  const [items, setItems] = useState([
+    {id: uuid(), text: 'Milk'},
+    {id: uuid(), text: 'Eggs'},
+    {id: uuid(), text: 'Bread'},
+    {id: uuid(), text: 'Juice'},
+  ]);
+
   return (
     <>
       <SafeAreaView>
         <Header />
+        <FlatList
+          data={items}
+          renderItem={({item}) => <Text>{item.text}</Text>}
+        />
       </SafeAreaView>
       <View style={styles.container}>
         <Text style={styles.text}>Hello World</Text>
