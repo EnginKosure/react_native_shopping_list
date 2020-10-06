@@ -5,7 +5,6 @@ import {
   View,
   TextInput,
   TouchableOpacity,
-  Alert,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/dist/FontAwesome';
 
@@ -22,11 +21,14 @@ const AddItem = ({title, addItem}) => {
         style={styles.input}
         onChangeText={onChange}
         value={text}
+        keyboardType={'twitter'}
+        keyboardAppearance={'dark'}
       />
       <TouchableOpacity
         style={styles.btn}
         onPress={() => {
-          addItem(text), resetField(text);
+          addItem(text);
+          resetField(text);
         }}>
         <Text style={styles.btnText}>
           {' '}
