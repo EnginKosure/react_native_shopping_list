@@ -1,6 +1,8 @@
 require_relative '../node_modules/react-native/scripts/react_native_pods'
 require_relative '../node_modules/@react-native-community/cli-platform-ios/native_modules'
 
+pod 'RNVectorIcons', :path => '../node_modules/react-native-vector-icons'
+
 platform :ios, '10.0'
 
 target 'shopping_list' do
@@ -9,7 +11,6 @@ target 'shopping_list' do
   use_react_native!(:path => config["reactNativePath"])
 
 
-  pod 'RNVectorIcons', :path => '../node_modules/react-native-vector-icons'
 
   target 'shopping_listTests' do
     inherit! :complete
