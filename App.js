@@ -7,12 +7,16 @@ import {
   SafeAreaView,
   FlatList,
   Alert,
+  KeyboardAvoidingView,
+  Platform,
+  ScrollView,
 } from 'react-native';
 import Header from './components/Header';
 import 'react-native-get-random-values';
 import {v4 as uuid} from 'uuid';
 import ListItem from './components/ListItem';
 import AddItem from './components/AddItem';
+import LoginPageTextInput from './components/LoginPageTextInput';
 
 const App = () => {
   const [items, setItems] = useState([
@@ -39,29 +43,48 @@ const App = () => {
   };
 
   return (
-    <>
-      <SafeAreaView>
-        <Header />
-        <AddItem addItem={addItem} />
-        <FlatList
-          data={items}
-          renderItem={({item}) => (
-            <ListItem item={item} deleteItem={deleteItem} />
-          )}
-        />
-      </SafeAreaView>
-      <View style={styles.container}>
-        <Text style={styles.text}>Hello World</Text>
-        <Image
-          source={{uri: 'https://randomuser.me/api/portraits/men/3.jpg'}}
-          style={styles.img}
-        />
-      </View>
-    </>
+    <SafeAreaView style={styles.safearea}>
+      <KeyboardAvoidingView
+        behavior={Platform.OS === 'ios' ? 'padding' : null}
+        style={styles.container}>
+        <ScrollView style={{flex: 1}} bounces={false}>
+          <Header />
+          <LoginPageTextInput
+            placeholder="Enter your e-mail..."
+            keyboardType="email-address"
+            textContentType="emailAddress"
+          />
+          <LoginPageTextInput
+            placeholder="Enter your password..."
+            keyboardType="default"
+            textContentType="password"
+          />
+
+          <AddItem addItem={addItem} />
+          <FlatList
+            data={items}
+            renderItem={({item}) => (
+              <ListItem item={item} deleteItem={deleteItem} />
+            )}
+          />
+          <View style={styles.container}>
+            <Text style={styles.text}>Hello World</Text>
+            <Image
+              source={{uri: 'https://randomuser.me/api/portraits/men/3.jpg'}}
+              style={styles.img}
+            />
+          </View>
+        </ScrollView>
+      </KeyboardAvoidingView>
+    </SafeAreaView>
   );
 };
 export default App;
 const styles = StyleSheet.create({
+  safearea: {
+    flex: 1,
+    backgroundColor: '#80cbc4',
+  },
   container: {
     flex: 1,
     justifyContent: 'center',
