@@ -7,9 +7,13 @@ import {
   Dimensions,
 } from 'react-native';
 
-const Button = ({text}) => {
+const Button = ({textEp, login, password, text}) => {
   return (
-    <TouchableOpacity style={styles.button}>
+    <TouchableOpacity
+      style={styles.button}
+      onPress={() => {
+        login(textEp, password);
+      }}>
       <Text style={styles.text}>{text}</Text>
     </TouchableOpacity>
   );

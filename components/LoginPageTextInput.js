@@ -1,12 +1,18 @@
-import React, {useState} from 'react';
-import {View, TextInput, StyleSheet} from 'react-native';
+import React from 'react';
+import {View, TextInput, StyleSheet, Dimensions} from 'react-native';
+import Icon from 'react-native-vector-icons/dist/FontAwesome';
 
-const LoginPageTextInput = ({placeholder, keyboardType, textContentType}) => {
-  const [text, setText] = useState('');
-  const onChange = (textValue) => setText(textValue);
-
+const LoginPageTextInput = ({
+  placeholder,
+  keyboardType,
+  textContentType,
+  text,
+  onChange,
+  name,
+}) => {
   return (
-    <View>
+    <View style={styles.section}>
+      <Icon style={styles.searchIcon} name={name} size={20} color="#000" />
       <TextInput
         placeholder={placeholder}
         style={styles.input}
@@ -22,13 +28,18 @@ const LoginPageTextInput = ({placeholder, keyboardType, textContentType}) => {
 export default LoginPageTextInput;
 
 const styles = StyleSheet.create({
-  input: {
-    height: 60,
-    fontSize: 16,
-    backgroundColor: 'white',
-    margin: 20,
-    padding: 10,
-    borderRadius: 13,
+  section: {
+    flexDirection: 'row',
     justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#fff',
+    borderRadius: 13,
+    margin: 20,
+  },
+  input: {
+    flex: 1,
+  },
+  searchIcon: {
+    padding: 10,
   },
 });

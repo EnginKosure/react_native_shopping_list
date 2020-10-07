@@ -22,6 +22,7 @@ const styles = StyleSheet.create({
     color: '#fff',
     fontSize: 23,
     textAlign: 'center',
+    fontWeight: 'bold',
   },
   img: {
     width: 100,
