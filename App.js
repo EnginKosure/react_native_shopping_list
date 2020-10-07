@@ -16,6 +16,7 @@ import 'react-native-get-random-values';
 import {v4 as uuid} from 'uuid';
 import LoginPageTextInput from './components/LoginPageTextInput';
 import Icon from 'react-native-vector-icons/dist/FontAwesome';
+import Button from './components/Button';
 const App = () => {
   return (
     <SafeAreaView style={styles.safearea}>
@@ -40,6 +41,8 @@ const App = () => {
             keyboardType="default"
             textContentType="password"
           />
+          <Button text="Login" />
+          <Button text="Sign Up" />
         </ScrollView>
       </KeyboardAvoidingView>
     </SafeAreaView>
