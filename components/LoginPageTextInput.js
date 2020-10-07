@@ -9,6 +9,7 @@ const LoginPageTextInput = ({
   text,
   onChange,
   name,
+  secureTextEntry,
 }) => {
   return (
     <View style={styles.section}>
@@ -20,6 +21,7 @@ const LoginPageTextInput = ({
         value={text}
         keyboardType={keyboardType}
         textContentType={textContentType}
+        secureTextEntry={secureTextEntry}
       />
     </View>
   );

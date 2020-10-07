@@ -21,8 +21,8 @@ const App = () => {
   const [text, setText] = useState('');
   const [password, setPassword] = useState('');
 
-  const onChangeT = (textValue) => setText(textValue);
-  const onChangeP = (textValue) => setPassword(textValue);
+  const onChangeT = (email) => setText(email);
+  const onChangeP = (pass) => setPassword(pass);
 
   const onLogin = (email, pass) => {
     if (!(email && pass)) {
@@ -72,6 +72,7 @@ const App = () => {
             onChange={onChangeP}
             text={password}
             name="unlock-alt"
+            secureTextEntry={true}
           />
           <Button
             text="Login"
