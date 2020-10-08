@@ -10,6 +10,7 @@ import {
   KeyboardAvoidingView,
   Platform,
   ScrollView,
+  Switch,
 } from 'react-native';
 import Header from './components/Header';
 import 'react-native-get-random-values';
@@ -23,8 +24,29 @@ const App = () => {
 
   const onChangeT = (email) => setText(email);
   const onChangeP = (pass) => setPassword(pass);
+  const [isEnabled, setIsEnabled] = useState(false);
+  const toggleSwitch = () => setIsEnabled((previousState) => !previousState);
+
+  const switchButton = (
+    <View style={styles.containerSwitch}>
+      <Switch
+        trackColor={{false: '#767577', true: '#80cbc4'}}
+        thumbColor={isEnabled ? '#546e7a' : '#f4f3f4'}
+        ios_backgroundColor="#3e3e3e"
+        onValueChange={toggleSwitch}
+        value={isEnabled}
+      />
+    </View>
+  );
+  const go = (email) => {
+    const reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+    reg.test(email) === true
+      ? Alert.alert('valid')
+      : Alert.alert('invalid email');
+  };
 
   const onLogin = (email, pass) => {
+    email && pass && go(email);
     if (!(email && pass)) {
       Alert.alert('Error', 'Please enter both fields', [{text: 'Ok'}], {
         cancelable: true,
@@ -72,7 +94,8 @@ const App = () => {
             onChange={onChangeP}
             text={password}
             name="unlock-alt"
-            secureTextEntry={true}
+            secureTextEntry={!isEnabled}
+            switchButton={switchButton}
           />
           <Button
             text="Login"
@@ -109,5 +132,10 @@ const styles = StyleSheet.create({
   text: {
     color: 'darkslateblue',
     fontSize: 25,
+  },
+  containerSwitch: {
+    flex: 1,
+    alignItems: 'flex-end',
+    justifyContent: 'center',
   },
 });

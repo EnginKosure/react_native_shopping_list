@@ -10,6 +10,7 @@ const LoginPageTextInput = ({
   onChange,
   name,
   secureTextEntry,
+  switchButton,
 }) => {
   return (
     <View style={styles.section}>
@@ -23,6 +24,7 @@ const LoginPageTextInput = ({
         textContentType={textContentType}
         secureTextEntry={secureTextEntry}
       />
+      {switchButton}
     </View>
   );
 };
