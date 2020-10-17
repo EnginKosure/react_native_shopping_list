@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import {
   View,
   Text,
@@ -12,12 +12,12 @@ import {
   ScrollView,
   Switch,
 } from 'react-native';
-import Header from './components/Header';
+import Header from './src/Header';
 import 'react-native-get-random-values';
-import {v4 as uuid} from 'uuid';
-import LoginPageTextInput from './components/LoginPageTextInput';
+import { v4 as uuid } from 'uuid';
+import LoginPageTextInput from './src/LoginPageTextInput';
 import Icon from 'react-native-vector-icons/dist/FontAwesome';
-import Button from './components/Button';
+import Button from './src/Button';
 const App = () => {
   const [text, setText] = useState('');
   const [password, setPassword] = useState('');
@@ -30,7 +30,7 @@ const App = () => {
   const switchButton = (
     <View style={styles.containerSwitch}>
       <Switch
-        trackColor={{false: '#767577', true: '#80cbc4'}}
+        trackColor={{ false: '#767577', true: '#80cbc4' }}
         thumbColor={isEnabled ? '#546e7a' : '#f4f3f4'}
         ios_backgroundColor="#3e3e3e"
         onValueChange={toggleSwitch}
@@ -48,7 +48,7 @@ const App = () => {
   const onLogin = (email, pass) => {
     email && pass && go(email);
     if (!(email && pass)) {
-      Alert.alert('Error', 'Please enter both fields', [{text: 'Ok'}], {
+      Alert.alert('Error', 'Please enter both fields', [{ text: 'Ok' }], {
         cancelable: true,
       });
     } else {
@@ -58,7 +58,7 @@ const App = () => {
   };
   const onSignUp = (email, pass) => {
     if (!(pass && email)) {
-      Alert.alert('Error', 'Please enter both fields', [{text: 'Ok'}], {
+      Alert.alert('Error', 'Please enter both fields', [{ text: 'Ok' }], {
         cancelable: true,
       });
     } else {
