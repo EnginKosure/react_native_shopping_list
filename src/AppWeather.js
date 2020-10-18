@@ -15,7 +15,7 @@ import {
 
 import Config from "react-native-config";
 
-Config.GOOGLE_MAPS_API_KEY; // 'abcdefgh'
+// Config.GOOGLE_MAPS_API_KEY; // 'abcdefgh'
 
 const HEIGHT = Dimensions.get('window').height;
 const WIDTH = Dimensions.get('window').width;
@@ -35,14 +35,28 @@ const AppWeather = () => {
         humidity: '',
         pressure: '',
         visibility: '',
+        sunrise: ''
     });
     const fetch_weather = () => {
-        fetch(`https://api.openweathermap.org/data/2.5/weather?q=${appState.city},be&appid=${Config.GOOGLE_MAPS_API_KEY}`)
+        fetch(`https://api.openweathermap.org/data/2.5/weather?q=${appState.city}&appid=${Config.GOOGLE_MAPS_API_KEY}`)
             // https://api.openweathermap.org/data/2.5/weather?q=London,uk&appid=YOUR_API_KEY
+            // https://api.openweathermap.org/data/2.5/weather?q=London&appid={API key}
             .then((response) => response.json())
             .then((json) => {
                 console.log(json);
-                setAppState({ data: json, temp: (json.main.temp - 273.15).toFixed(2) + " °C", city_display: json.name, icon: json.weather[0].icon, desc: json.weather[0].description, main: json.weather[0].main, humidity: json.main.humidity + " %", pressure: json.main.pressure + " hPa", visibility: (json.visibility / 1000).toFixed(2) + " Km" });
+                let unix_timestamp = json.sys.sunrise;
+                // Create a new JavaScript Date object based on the timestamp
+                // multiplied by 1000 so that the argument is in milliseconds, not seconds.
+                var date = new Date(unix_timestamp * 1000);
+                // Hours part from the timestamp
+                var hours = date.getHours();
+                // Minutes part from the timestamp
+                var minutes = "0" + date.getMinutes();
+                // Seconds part from the timestamp
+                var seconds = "0" + date.getSeconds();
+                // Will display time in 10:30:23 format
+                var formattedTime = hours + ':' + minutes.substr(-2) + ':' + seconds.substr(-2);
+                setAppState({ data: json, temp: (json.main.temp - 273.15).toFixed(2) + " °C", city_display: json.name, icon: json.weather[0].icon, desc: json.weather[0].description, main: json.weather[0].main, humidity: json.main.humidity + " %", pressure: json.main.pressure + " hPa", visibility: (json.visibility / 1000).toFixed(2) + " Km", sunrise: formattedTime });
             })
             .catch((error) => console.error(error))
             .finally(() => {
@@ -50,12 +64,9 @@ const AppWeather = () => {
             });
     }
 
-
     useEffect(() => {
         setAppState({ ...appState });
     }, [appState.city]);
-
-
 
     return (
         <SafeAreaView style={styles.container}>
@@ -76,6 +87,8 @@ const AppWeather = () => {
                         <View>
                             <Text style={styles.temprature_text}>{appState.temp}</Text>
                             <Text style={styles.city_text}>{appState.city_display}</Text>
+                            <Text style={styles.city_text}>Sunrise:{appState.sunrise}</Text>
+
                         </View>
                     </View>
                 </View>
