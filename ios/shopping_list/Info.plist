@@ -55,6 +55,7 @@
 	<false/>
 	<key>UIAppFonts</key>
 	<array>
+		<string>anticon.ttf</string>
 		<string>FontAwesome.ttf</string>
 		<string>Foundation.ttf</string>
 	</array>

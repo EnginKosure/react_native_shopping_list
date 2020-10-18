@@ -1,0 +1,199 @@
+import React, { useState, useEffect } from 'react';
+import {
+    View,
+    Text,
+    SafeAreaView,
+    Dimensions,
+    StyleSheet,
+    Image,
+    ImageBackground,
+    StatusBar,
+    TouchableOpacity,
+    TextInput,
+    ActivityIndicator,
+} from 'react-native';
+
+import Config from "react-native-config";
+
+Config.GOOGLE_MAPS_API_KEY; // 'abcdefgh'
+
+const HEIGHT = Dimensions.get('window').height;
+const WIDTH = Dimensions.get('window').width;
+
+import Icon from 'react-native-vector-icons/dist/FontAwesome';
+
+const AppWeather = () => {
+    const [appState, setAppState] = useState({
+        data: [],
+        isLoading: true,
+        temp: '',
+        city: 'Brussels',
+        icon: '',
+        city_display: '',
+        desc: '',
+        main: '',
+        humidity: '',
+        pressure: '',
+        visibility: '',
+    });
+    const fetch_weather = () => {
+        fetch(`https://api.openweathermap.org/data/2.5/weather?q=${appState.city},be&appid=${Config.GOOGLE_MAPS_API_KEY}`)
+            // https://api.openweathermap.org/data/2.5/weather?q=London,uk&appid=YOUR_API_KEY
+            .then((response) => response.json())
+            .then((json) => {
+                console.log(json);
+                setAppState({ data: json, temp: (json.main.temp - 273.15).toFixed(2) + " °C", city_display: json.name, icon: json.weather[0].icon, desc: json.weather[0].description, main: json.weather[0].main, humidity: json.main.humidity + " %", pressure: json.main.pressure + " hPa", visibility: (json.visibility / 1000).toFixed(2) + " Km" });
+            })
+            .catch((error) => console.error(error))
+            .finally(() => {
+                setAppState({ ...appState, isLoading: false });
+            });
+    }
+
+
+    useEffect(() => {
+        setAppState({ ...appState });
+    }, [appState.city]);
+
+
+
+    return (
+        <SafeAreaView style={styles.container}>
+            <StatusBar translucent={true} backgroundColor="#000" />
+            <ImageBackground source={{ uri: "https://cdn.dribbble.com/users/648922/screenshots/11206395/media/5998f56329eda70b71fecd050032bc21.png" }}
+                style={styles.Image_Background_Style}>
+
+                <View style={styles.Search_Box_View}>
+                    <TextInput placeholder="Search" placeholderTextColor="#FFF" style={styles.Search_Box} onChangeText={(text) => setAppState({ ...appState, city: text })} />
+                    <TouchableOpacity style={styles.button_touch} onPress={fetch_weather}>
+                        <Icon name="search" size={24} color="#FFF" />
+                    </TouchableOpacity>
+                </View>
+
+                <View style={styles.Weather_Box_Main}>
+                    <View style={styles.Weather_Holder_View}>
+                        <Image tintColor='#FFF' source={{ uri: "http://openweathermap.org/img/wn/" + appState.icon + "@2x.png", }} style={styles.Weather_Image} />
+                        <View>
+                            <Text style={styles.temprature_text}>{appState.temp}</Text>
+                            <Text style={styles.city_text}>{appState.city_display}</Text>
+                        </View>
+                    </View>
+                </View>
+
+                <View style={styles.Info_Box_View}>
+                    <View style={styles.Info_Holder_Veiw}>
+                        <Text style={styles.Main_Weather_Text}>{appState.main}</Text>
+                        <Text style={styles.description_text}>{appState.desc}</Text>
+                        <Text style={styles.humidity_text}>Humidity : {appState.humidity}</Text>
+                        <Text style={styles.other_text}>Pressure : {appState.pressure}</Text>
+                        <Text style={styles.other_text}>Visibility : {appState.visibility}</Text>
+                    </View>
+                </View>
+            </ImageBackground>
+
+        </SafeAreaView>
+    );
+};
+
+export default AppWeather;
+
+const styles = StyleSheet.create({
+    container: {
+        height: HEIGHT,
+        width: WIDTH
+    },
+    Image_Background_Style: {
+        height: "100%",
+        width: "100%"
+    },
+    Search_Box_View: {
+        height: "20%",
+        width: "100%",
+        justifyContent: "center",
+        alignItems: "center",
+        flexDirection: "row"
+    },
+    Search_Box: {
+        height: "35%",
+        width: "80%",
+        borderColor: "#FFF",
+        borderWidth: 1,
+        borderRadius: 15,
+        color: "#FFF",
+        paddingHorizontal: 15
+    },
+    button_touch: {
+        marginLeft: "5%",
+        height: "35%",
+        width: "8%",
+        justifyContent: "center",
+        alignItems: "center"
+    },
+    Weather_Box_Main: {
+        height: "30%",
+        width: "100%",
+        justifyContent: "center",
+        alignItems: "center",
+        flexDirection: "row"
+    },
+    Weather_Holder_View: {
+        height: "80%",
+        width: "90%",
+        backgroundColor: 'rgba(255, 255, 255, 0.3)',
+        borderRadius: 15,
+        alignItems: "center",
+        flexDirection: "row"
+    },
+    Weather_Image: {
+        height: "80%",
+        width: "50%"
+    },
+    temprature_text: {
+        fontSize: 30,
+        color: "#FFF",
+        marginLeft: "5%"
+    },
+    city_text: {
+        fontSize: 20,
+        color: "#FFF",
+        marginLeft: "5%",
+        marginTop: "3%"
+    },
+    Info_Box_View: {
+        height: "45%",
+        width: "100%",
+        justifyContent: "center",
+        alignItems: "center"
+    },
+    Info_Holder_Veiw: {
+        height: "80%",
+        width: "90%",
+        backgroundColor: 'rgba(255, 255, 255, 0.92)',
+        borderRadius: 15
+    },
+    Main_Weather_Text: {
+        fontSize: 28,
+        color: "#464646",
+        marginLeft: "8%",
+        marginTop: "8%",
+        fontWeight: "bold"
+    },
+    description_text: {
+        fontSize: 20,
+        color: "#121212",
+        marginLeft: "8%",
+        marginTop: "3%"
+    },
+    humidity_text: {
+        fontSize: 18,
+        color: "#121212",
+        marginLeft: "8%",
+        marginTop: "5%"
+    },
+    other_text: {
+        fontSize: 18,
+        color: "#121212",
+        marginLeft: "8%",
+        marginTop: "2%"
+    }
+})
