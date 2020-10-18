@@ -14,6 +14,7 @@ import {
 } from 'react-native';
 
 import Config from "react-native-config";
+import Loader from './Loading';
 
 // Config.GOOGLE_MAPS_API_KEY; // 'abcdefgh'
 
@@ -93,15 +94,18 @@ const AppWeather = () => {
                     </View>
                 </View>
 
-                <View style={styles.Info_Box_View}>
-                    <View style={styles.Info_Holder_Veiw}>
-                        <Text style={styles.Main_Weather_Text}>{appState.main}</Text>
-                        <Text style={styles.description_text}>{appState.desc}</Text>
-                        <Text style={styles.humidity_text}>Humidity : {appState.humidity}</Text>
-                        <Text style={styles.other_text}>Pressure : {appState.pressure}</Text>
-                        <Text style={styles.other_text}>Visibility : {appState.visibility}</Text>
+                {appState.isLoading ? <Loader /> : (
+                    <View style={styles.Info_Box_View}>
+                        <View style={styles.Info_Holder_Veiw}>
+                            <Text style={styles.Main_Weather_Text}>{appState.main}</Text>
+                            <Text style={styles.description_text}>{appState.desc}</Text>
+                            <Text style={styles.humidity_text}>Humidity : {appState.humidity}</Text>
+                            <Text style={styles.other_text}>Pressure : {appState.pressure}</Text>
+                            <Text style={styles.other_text}>Visibility : {appState.visibility}</Text>
+                        </View>
                     </View>
-                </View>
+                )}
+
             </ImageBackground>
 
         </SafeAreaView>
