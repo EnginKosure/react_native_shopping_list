@@ -29,7 +29,7 @@ const AppWeather = () => {
         data: [],
         isLoading: true,
         temp: '',
-        city: 'Brussels',
+        city: '',
         icon: '',
         city_display: '',
         desc: '',
@@ -78,7 +78,13 @@ const AppWeather = () => {
                 style={styles.Image_Background_Style}>
 
                 <View style={styles.Search_Box_View}>
-                    <TextInput placeholder="Search" placeholderTextColor="#FFF" style={styles.Search_Box} onChangeText={(text) => setAppState({ ...appState, city: text })} />
+                    <TextInput
+                        placeholder="Search"
+                        placeholderTextColor="#FFF"
+                        style={styles.Search_Box}
+                        onChangeText={(text) => setAppState({ ...appState, city: text })}
+                        value={appState.city}
+                    />
                     <TouchableOpacity style={styles.button_touch} onPress={fetch_weather}>
                         <Icon name="search" size={24} color="#FFF" />
                     </TouchableOpacity>
