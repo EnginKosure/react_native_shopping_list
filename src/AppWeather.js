@@ -11,6 +11,7 @@ import {
     TouchableOpacity,
     TextInput,
     ActivityIndicator,
+    Keyboard
 } from 'react-native';
 
 import Config from "react-native-config";
@@ -62,6 +63,7 @@ const AppWeather = () => {
             .catch((error) => console.error(error))
             .finally(() => {
                 setAppState({ ...appState, isLoading: false });
+                Keyboard.dismiss()
             });
     }
 
