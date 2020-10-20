@@ -1,11 +1,15 @@
 import React from 'react';
-import { SafeAreaView, View, Text, StyleSheet } from 'react-native';
+import { SafeAreaView, View, Text, StyleSheet, Button } from 'react-native';
 
-const First = () => {
+const First = ({ navigation }) => {
     return (
         <SafeAreaView>
             <View>
                 <Text>First</Text>
+                <Button
+                    title="Go to Weather App"
+                    onPress={() => navigation.navigate('Weather')}
+                />
             </View>
         </SafeAreaView>
     )

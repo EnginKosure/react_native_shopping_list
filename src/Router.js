@@ -5,13 +5,10 @@ import { View, Text } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 
-function HomeScreen() {
-    return (
-        <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-            <Text>Home Screen</Text>
-        </View>
-    );
-}
+import First from './pages/First';
+import Second from './pages/Second';
+import AppWeather from '../src/AppWeather';
+
 
 const Stack = createStackNavigator();
 
@@ -19,7 +16,10 @@ function App() {
     return (
         <NavigationContainer>
             <Stack.Navigator>
-                <Stack.Screen name="Home" component={HomeScreen} />
+                <Stack.Screen name="FirstPage" component={First} />
+                <Stack.Screen name="SecondPage" component={Second} />
+                <Stack.Screen name="Weather" component={AppWeather} />
+
             </Stack.Navigator>
         </NavigationContainer>
     );
