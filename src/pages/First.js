@@ -1,53 +1,112 @@
 import React, { useState } from 'react';
-import { SafeAreaView, View, Text, StyleSheet, Button, TextInput } from 'react-native';
-const First = ({ navigation }) => {
-    const [userName, setUserName] = useState("");
-    const [number, setNumber] = useState(0);
+import { SafeAreaView, View, Text, StyleSheet, Button, TextInput, FlatList, StatusBar, Image, Dimensions, TouchableOpacity, Modal, TouchableHighlight } from 'react-native';
+import imageArray from "../product_data.json";
+
+
+const Item = ({ image }) => {
+    const [modalVisible, setModalVisible] = useState(false);
+
     return (
-        <SafeAreaView>
-            <View>
-                <Text>First</Text>
-                <View style={styles.textInput}>
-
-                    <TextInput
-                        value={userName}
-                        onChangeText={text => setUserName(text)}
-                        style={styles.text}
-                    />
-                </View>
-                <View style={styles.textInput}>
-
-                    <TextInput
-                        value={number}
-                        onChangeText={text => setNumber(text)}
-                        style={styles.text}
-                    />
-                </View>
-
-                <Button
-                    title="Go to Second Page"
-                    onPress={() => navigation.navigate('SecondPage', { myNumber: number, selectedValue: userName })}
-                />
-                <Button
-                    title="Go to Weather App"
-                    onPress={() => navigation.navigate('Weather')}
-                />
-            </View>
-        </SafeAreaView>
+        <View style={styles.item}>
+            <TouchableOpacity onPress={() => setModalVisible(!modalVisible)}>
+                <Modal
+                    animationType="fade"
+                    transparent={true}
+                    visible={modalVisible}
+                >
+                    <View style={styles.centeredView}>
+                        <View style={styles.modalView}>
+                            <TouchableHighlight
+                                onPress={() => {
+                                    setModalVisible(!modalVisible);
+                                }}
+                            >
+                                <Image
+                                    id={image.id}
+                                    style={styles.newSize}
+                                    source={{
+                                        uri: image.imgURL
+                                    }} />
+                            </TouchableHighlight>
+                        </View>
+                    </View>
+                </Modal>
+                <Image
+                    // id={image.id}
+                    style={styles.image}
+                    source={{
+                        uri: image.imgURL
+                    }} />
+            </TouchableOpacity>
+        </View>
     )
 }
 
-export default First
+const First = () => {
+
+    const renderItem = ({ item }) => (
+        <Item image={item} />
+    );
+
+    return (
+        <SafeAreaView style={styles.container}>
+
+            <Text style={styles.title}>Image Gallery</Text>
+            <FlatList
+                numColumns={2}
+                horizontal={false}
+                data={imageArray}
+                renderItem={renderItem}
+                keyExtractor={item => item.id.toString()}
+            />
+        </SafeAreaView>
+    );
+}
+
 const styles = StyleSheet.create({
-    textInput: {
-        backgroundColor: '#e0e0e0',
-        padding: 10,
-        margin: 10,
-        borderRadius: 5
+    container: {
+        flex: 1,
+        marginTop: StatusBar.currentHeight || 0,
     },
-    text: {
-        margin: 10,
-        borderColor: 'black',
-        borderRadius: 5,
-    }
-})
+    item: {
+        marginVertical: 4,
+        marginHorizontal: 4,
+    },
+    image: {
+        height: Dimensions.get('window').height / 2.5,
+        width: Dimensions.get('window').width / 2,
+    },
+    title: {
+        alignSelf: 'center',
+        fontWeight: 'bold',
+    },
+    newSize: {
+        flex: 1,
+        height: Dimensions.get('window').height / 1,
+        width: Dimensions.get('window').width / 1.3,
+        resizeMode: 'contain'
+    },
+    centeredView: {
+        flex: 1,
+        justifyContent: "center",
+        alignItems: "center",
+        marginTop: 22,
+    },
+    modalView: {
+        margin: 40,
+        backgroundColor: "rgba(110,100,100,.8)",
+        borderRadius: 20,
+        padding: 50,
+        alignItems: "center",
+        shadowColor: "#000",
+        shadowOffset: {
+            width: 0,
+            height: 2
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 3.84,
+        elevation: 5
+    },
+});
+
+export default First;
