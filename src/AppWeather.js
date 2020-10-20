@@ -11,7 +11,8 @@ import {
     TouchableOpacity,
     TextInput,
     ActivityIndicator,
-    Keyboard
+    Keyboard,
+    Button
 } from 'react-native';
 
 import Config from "react-native-config";
@@ -24,7 +25,7 @@ const WIDTH = Dimensions.get('window').width;
 
 import Icon from 'react-native-vector-icons/dist/FontAwesome';
 
-const AppWeather = () => {
+const AppWeather = ({ navigation }) => {
     const [appState, setAppState] = useState({
         data: [],
         isLoading: true,
@@ -111,6 +112,11 @@ const AppWeather = () => {
                             <Text style={styles.other_text}>Pressure : {appState.pressure}</Text>
                             <Text style={styles.other_text}>Visibility : {appState.visibility}</Text>
                         </View>
+                        <Button
+                            title="Go to Second Page"
+                            onPress={() => navigation.navigate('SecondPage')}
+                        />
+
                     </View>
                 )}
 

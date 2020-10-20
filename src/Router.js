@@ -15,7 +15,12 @@ const Stack = createStackNavigator();
 function App() {
     return (
         <NavigationContainer>
-            <Stack.Navigator>
+            <Stack.Navigator
+                screenOptions={{
+                    headerShown: false,
+                    gestureEnabled: false
+                }}
+            >
                 <Stack.Screen name="FirstPage" component={First} />
                 <Stack.Screen name="SecondPage" component={Second} />
                 <Stack.Screen name="Weather" component={AppWeather} />
