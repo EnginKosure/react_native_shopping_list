@@ -16,7 +16,7 @@ import {
 } from 'react-native';
 
 import Config from "react-native-config";
-import Loader from './Loading';
+import Loader from '../Loading';
 
 // Config.GOOGLE_MAPS_API_KEY; // 'abcdefgh'
 

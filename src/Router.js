@@ -7,7 +7,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 
 import First from './pages/First';
 import Second from './pages/Second';
-import AppWeather from '../src/AppWeather';
+import AppWeather from './pages/AppWeather';
 
 
 const Stack = createStackNavigator();
