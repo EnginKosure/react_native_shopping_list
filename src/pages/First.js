@@ -50,7 +50,7 @@ const First = ({ navigation }) => {
 
     return (
         <SafeAreaView style={styles.container}>
-            <View>
+            <View style={styles.header}>
 
                 <Text style={styles.title}>Image Gallery</Text>
                 <Button
@@ -113,6 +113,10 @@ const styles = StyleSheet.create({
         shadowRadius: 3.84,
         elevation: 5
     },
+    header: {
+        flexDirection: 'row',
+        justifyContent: 'space-evenly',
+    }
 });
 
 export default First;
