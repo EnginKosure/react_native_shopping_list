@@ -71,7 +71,11 @@ const AppWeather = ({ navigation }) => {
     useEffect(() => {
         setAppState({ ...appState });
     }, [appState.city]);
-
+    const renderSunrise = () => {
+        if (appState.sunrise) {
+            return <Text style={styles.city_text}>Sunrise:{appState.sunrise}</Text>
+        }
+    }
     return (
         <SafeAreaView style={styles.container}>
             <StatusBar translucent={true} backgroundColor="#000" />
@@ -97,7 +101,7 @@ const AppWeather = ({ navigation }) => {
                         <View>
                             <Text style={styles.temprature_text}>{appState.temp}</Text>
                             <Text style={styles.city_text}>{appState.city_display}</Text>
-                            <Text style={styles.city_text}>Sunrise:{appState.sunrise}</Text>
+                            {renderSunrise()}
 
                         </View>
                     </View>
@@ -112,17 +116,18 @@ const AppWeather = ({ navigation }) => {
                             <Text style={styles.other_text}>Pressure : {appState.pressure}</Text>
                             <Text style={styles.other_text}>Visibility : {appState.visibility}</Text>
                         </View>
-                        <Button
-                            title="Go to Second Page"
-                            onPress={() => navigation.navigate('SecondPage')}
-                        />
+
 
                     </View>
                 )}
+                <Button
+                    title="Go to Second Page"
+                    onPress={() => navigation.navigate('SecondPage')}
+                />
 
             </ImageBackground>
 
-        </SafeAreaView>
+        </SafeAreaView >
     );
 };
 

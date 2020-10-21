@@ -9,7 +9,7 @@ const Second = ({ route, navigation }) => {
                 <Text>Second</Text>
 
                 <Button
-                    title="Go to First Page"
+                    title="Go to Image Gallery"
                     onPress={() => navigation.navigate('FirstPage')}
                 />
 

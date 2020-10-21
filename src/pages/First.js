@@ -8,29 +8,29 @@ const Item = ({ image }) => {
 
     return (
         <View style={styles.item}>
-            <TouchableOpacity onPress={() => setModalVisible(!modalVisible)}>
-                <Modal
-                    animationType="fade"
-                    transparent={true}
-                    visible={modalVisible}
-                >
-                    <View style={styles.centeredView}>
-                        <View style={styles.modalView}>
-                            <TouchableHighlight
-                                onPress={() => {
-                                    setModalVisible(!modalVisible);
-                                }}
-                            >
-                                <Image
-                                    id={image.id}
-                                    style={styles.newSize}
-                                    source={{
-                                        uri: image.imgURL
-                                    }} />
-                            </TouchableHighlight>
-                        </View>
+            <Modal
+                animationType="fade"
+                transparent={true}
+                visible={modalVisible}
+            >
+                <View style={styles.centeredView}>
+                    <View style={styles.modalView}>
+                        <TouchableHighlight
+                            onPress={() => {
+                                setModalVisible(!modalVisible);
+                            }}
+                        >
+                            <Image
+                                id={image.id}
+                                style={styles.newSize}
+                                source={{
+                                    uri: image.imgURL
+                                }} />
+                        </TouchableHighlight>
                     </View>
-                </Modal>
+                </View>
+            </Modal>
+            <TouchableOpacity onPress={() => setModalVisible(!modalVisible)}>
                 <Image
                     // id={image.id}
                     style={styles.image}
@@ -42,7 +42,7 @@ const Item = ({ image }) => {
     )
 }
 
-const First = () => {
+const First = ({ navigation }) => {
 
     const renderItem = ({ item }) => (
         <Item image={item} />
@@ -50,8 +50,14 @@ const First = () => {
 
     return (
         <SafeAreaView style={styles.container}>
+            <View>
 
-            <Text style={styles.title}>Image Gallery</Text>
+                <Text style={styles.title}>Image Gallery</Text>
+                <Button
+                    title="Go to Weather page"
+                    onPress={() => navigation.navigate('Weather')}
+                />
+            </View>
             <FlatList
                 numColumns={2}
                 horizontal={false}

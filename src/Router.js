@@ -18,7 +18,7 @@ function App() {
             <Stack.Navigator
                 screenOptions={{
                     headerShown: false,
-                    gestureEnabled: false
+                    gestureEnabled: true
                 }}
             >
                 <Stack.Screen name="FirstPage" component={First} />
