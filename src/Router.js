@@ -8,6 +8,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import First from './pages/First';
 import Second from './pages/Second';
 import AppWeather from './pages/AppWeather';
+import CafePage from './pages/CafePage';
 
 
 const Stack = createStackNavigator();
@@ -24,6 +25,7 @@ function App() {
                 <Stack.Screen name="FirstPage" component={First} />
                 <Stack.Screen name="SecondPage" component={Second} />
                 <Stack.Screen name="Weather" component={AppWeather} />
+                <Stack.Screen name="CafePage" component={CafePage} />
 
             </Stack.Navigator>
         </NavigationContainer>
