@@ -35,9 +35,9 @@ const Second = ({ route, navigation }) => {
             });
     }
 
-    // useEffect(() => {
-    //     setAppState([...appState]);
-    // }, [appState]);
+    useEffect(() => {
+        Keyboard.dismiss();
+    }, [appState]);
     const renderItemList = ({ item }) => <Item cafe={item} onSelect={
         () => navigation.navigate('CafePage', { selectedCafe: item })
     } />

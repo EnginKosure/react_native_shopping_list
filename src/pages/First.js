@@ -2,10 +2,8 @@ import React, { useState } from 'react';
 import { SafeAreaView, View, Text, StyleSheet, Button, TextInput, FlatList, StatusBar, Image, Dimensions, TouchableOpacity, Modal, TouchableHighlight } from 'react-native';
 import imageArray from "../product_data.json";
 
-
 const Item = ({ image }) => {
     const [modalVisible, setModalVisible] = useState(false);
-
     return (
         <View style={styles.item}>
             <Modal
