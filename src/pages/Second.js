@@ -3,7 +3,7 @@ import { StyleSheet, Text, View, SafeAreaView, Button, TextInput, TouchableOpaci
 import Config from "react-native-config";
 import Icon from 'react-native-vector-icons/dist/FontAwesome';
 import Item from './Item';
-// const apiKey = Config.YOUR_API_KEY
+const apiKey = Config.YOUR_API_KEY
 const HEIGHT = Dimensions.get('window').height;
 const WIDTH = Dimensions.get('window').width;
 const Second = ({ route, navigation }) => {
@@ -15,7 +15,7 @@ const Second = ({ route, navigation }) => {
 
     const config = {
         headers: {
-            Authorization: 'Bearer ' + Config.YOUR_API_KEY,
+            Authorization: 'Bearer ' + apiKey,
         },
     };
 
